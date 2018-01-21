@@ -1,8 +1,8 @@
 var marvelApiApp = angular.module("marvelApiApp", []);
 
 // Construct the $getAPI
-var $publicKey      = "c39c7775247a7d615b70c1e7b2dfa8c3";
-var $privateKey     = "6d10c96fd458fda09f8ece2d51fad3386d53320d";
+var $publicKey      = "########################################";
+var $privateKey     = "########################################";
 var $date           = new Date();
 var $time           = $date.getTime();
 var $hash           = $.md5($time + $privateKey + $publicKey);

@@ -26,9 +26,6 @@ app.component('comicList', {
 		},
 
 		this.showComicDetails = function(view) {
-			//alert('as');
-			//console.log(comicData);
-
 			this.view = view;
 			this.onViewChange({$event: {view: view}});
 
