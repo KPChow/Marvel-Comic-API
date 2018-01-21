@@ -10,9 +10,30 @@ var $url            = "https://gateway.marvel.com/v1/public/";
 
 marvelApiApp.controller("MainCtrl", function($scope, $http) {
 
-  
-
   this.view = "";
+
+  this.$onInit = function() {
+    // Single Comic API call
+    $scope.getComicCover = function() {
+      // Comic ID starts from 2 and goes up to 54959
+      var $comicID = Math.floor(Math.random() * 54959) + 2; 
+      //var $thisComic = $url + "comics/" + $comicID + "?apikey=" + $publicKey + "&hash=" + $hash + "&ts=" + $time;
+      var $thisComic = $url + "comics/3?apikey=" + $publicKey + "&hash=" + $hash + "&ts=" + $time;
+
+      $http({
+        method: "GET",
+        url: $thisComic
+      }).then(function successCallback(response) {
+        console.log(response.data.data.results[0].thumbnail);
+
+        $scope.thisComic = response.data.data.results[0].thumbnail.path + "." + response.data.data.results[0].thumbnail.extension;
+      }, function errorCallback(response) {
+          console.log(response.data.status);
+
+          $scope.thisComic = "";
+        });
+    }
+  }
 
   // Search Superheroes API call
   $scope.typeAhead = function(data) {
@@ -39,29 +60,6 @@ marvelApiApp.controller("MainCtrl", function($scope, $http) {
     }   
   }
 
-  // Single Comic API call
-  $scope.getComicCover = function() {
-    // Comic ID starts from 2 and goes up to 54959
-    var $comicID = Math.floor(Math.random() * 54959) + 2; 
-    //var $thisComic = $url + "comics/" + $comicID + "?apikey=" + $publicKey + "&hash=" + $hash + "&ts=" + $time;
-    var $thisComic = $url + "comics/3?apikey=" + $publicKey + "&hash=" + $hash + "&ts=" + $time;
-
-    $http({
-      method: "GET",
-      url: $thisComic
-    }).then(function successCallback(response) {
-      console.log(response.data.data.results[0].thumbnail);
-
-      $scope.thisComic = response.data.data.results[0].thumbnail.path + "." + response.data.data.results[0].thumbnail.extension;
-    }, function errorCallback(response) {
-        console.log(response.data.status);
-
-        $scope.thisComic = "";
-      });
-  }
-
-  $scope.getComicCover();
-
   $scope.selectHero = function(data) {
     $('.ui.modal')
       .modal('setting', 'transition', 'fade up')
@@ -75,65 +73,11 @@ marvelApiApp.controller("MainCtrl", function($scope, $http) {
   // This Weeks Comic API call
   this.getThisWeekApi = $url + "comics?format=comic&formatType=comic&noVariants=false&dateDescriptor=thisWeek&limit=8"  + "&apikey=" + $publicKey + "&hash=" + $hash + "&ts=" + $time;
 
-  // $scope.getThisWeek = function() {
-  //   var $thisWeek = $url + "comics?format=comic&formatType=comic&noVariants=false&dateDescriptor=thisWeek&limit=8"  + "&apikey=" + $publicKey + "&hash=" + $hash + "&ts=" + $time;
-
-  //   $scope.thisWeekLoading = true;
-
-  //   $http({
-  //     method: "GET",
-  //     url: $thisWeek
-  //   }).then(function successCallback(response) {
-  //     console.log(response.data.data.results);
-
-  //     $scope.thisWeekComics = response.data.data.results;
-  //     $scope.thisWeekLoading = false;
-  //   });
-  // }
-
-  // $scope.getThisWeek();
-
 
   // Last Weeks Comic API call
   this.getLastWeekApi = $url + "comics?format=comic&formatType=comic&noVariants=false&dateDescriptor=lastWeek&limit=8"  + "&apikey=" + $publicKey + "&hash=" + $hash + "&ts=" + $time;
 
-  // $scope.getLastWeek = function() {
-  //   var $lastWeek = $url + "comics?format=comic&formatType=comic&noVariants=false&dateDescriptor=lastWeek&limit=8"  + "&apikey=" + $publicKey + "&hash=" + $hash + "&ts=" + $time;
-
-  //   $scope.lastWeekLoading = true;
-
-  //   $http({
-  //     method: "GET",
-  //     url: $lastWeek
-  //   }).then(function successCallback(response) {
-  //     console.log(response.data.data.results);
-
-  //     $scope.lastWeekComics = response.data.data.results;
-  //     $scope.lastWeekLoading = false;
-  //   });
-  // }
-
-  // $scope.getLastWeek();
-
 
   // This Month Comic API call
   this.getThisMonthApi = $url + "comics?format=comic&formatType=comic&noVariants=false&dateDescriptor=thisMonth&limit=16"  + "&apikey=" + $publicKey + "&hash=" + $hash + "&ts=" + $time;
-
-  // $scope.getThisMonth = function() {
-  //   var $thisMonth = $url + "comics?format=comic&formatType=comic&noVariants=false&dateDescriptor=thisMonth&limit=16"  + "&apikey=" + $publicKey + "&hash=" + $hash + "&ts=" + $time;
-
-  //   $scope.thisMonthLoading = true;
-
-  //   $http({
-  //     method: "GET",
-  //     url: $thisMonth
-  //   }).then(function successCallback(response) {
-  //     console.log(response.data.data.results);
-
-  //     $scope.thisMonthComics = response.data.data.results;
-  //     $scope.thisMonthLoading = false;
-  //   });
-  // }
-
-  // $scope.getThisMonth();
 });
