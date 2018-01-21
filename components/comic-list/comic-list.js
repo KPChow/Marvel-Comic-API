@@ -17,9 +17,6 @@ app.component('comicList', {
 	      		method: "GET",
 	      		url: this.dateApi
 		    }).then(function successCallback(response) {
-		    	console.log("asds");
-		      	console.log(response.data.data.results);
-
 		      	$scope.thisWeekComics = response.data.data.results;
 		      	$scope.thisWeekLoading = false;
 		    });

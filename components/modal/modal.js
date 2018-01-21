@@ -8,11 +8,6 @@ app.component('modal', {
 	// Load the template
 	templateUrl: "components/modal/modal.template.html",
 	controller: function($scope, $http) {
-		this.$onInit = function() {
 			
-		}
-
-		console.log("show comic");
-		console.log(this.view);
 	}
 });
