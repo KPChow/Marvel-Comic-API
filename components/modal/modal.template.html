@@ -1,0 +1,35 @@
+ <div class="ui modal">
+    <i class="close icon"></i>
+    <div class="header">
+        {{$ctrl.view.title}}
+    </div>
+    <div class="image scrolling content">
+        <div class="ui large image">
+            <img ng-src="{{$ctrl.view.thumbnail.path + '.' + $ctrl.view.thumbnail.extension}}" style="width: 400px;"/>
+        </div>
+        <div class="description">
+            <div class="ui grid">
+                <div class="eight wide column">
+                    <p>
+                        <strong>Description</strong><br>{{$ctrl.view.description}}
+                    </p>
+                    <p>
+                        <strong>Series</strong><br>
+                        {{$ctrl.view.series.name}}
+                    </p>
+                </div>
+                <div class="eight wide column">
+                    <p>
+                        <strong>Creators</strong>
+                        <ul>
+                            <li ng-repeat="creators in $ctrl.view.creators.items">
+                                {{creators.name}} - {{creators.role}}
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

@@ -1,0 +1,29 @@
+<div class="ui sizer vertical stripe segment this-week comics">
+    <div class="ui middle aligned stackable grid container">
+        <h1 class="ui header">
+            <span>This Weeks Comics</span>
+            <span class="corner-triangle"></span>
+        </h1>
+
+        <div class="row">
+            <div class="four wide column" ng-repeat="thisWeekComics in thisWeekComics">
+                <div class="ui link cards" ng-click="$ctrl.showComicDetails(thisWeekComics)">
+                    <div class="ui centered card">
+                        <div class="image">
+                            <img ng-if="thisWeekLoading" src="loader.gif" srcset="loader.svg" style="width: 50%; margin: 0 auto;"/>
+
+                            <a ng-if="!thisWeekLoading">
+                                <img class="ui fluid image" ng-src="{{thisWeekComics.images[0].path + '.' + thisWeekComics.images[0].extension}}"/>
+                            </a>
+                        </div>
+                        <div class="content">
+                            <div class="description">
+                                <a>{{thisWeekComics.title}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

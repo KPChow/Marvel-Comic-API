@@ -1,0 +1,141 @@
+.ui.menu .ui.container .logo {
+	height: 50px;
+}
+
+.masthead { 
+	position: relative; 
+	padding: 0 !important;
+}
+
+.masthead > .heroImage {
+	background-repeat: no-repeat !important;
+	background-position: center 46% !important;
+	background-size: 100%;
+	opacity: 0.3;
+	height: 500px;
+}
+
+.masthead .ui.text.container {
+    position: absolute;
+    top: 20%;
+    z-index: 100;
+}
+
+.masthead .ui.text.container h1 {
+	margin-top: 1rem;
+	font-size: 2.5rem;
+	text-transform: uppercase;
+}
+
+.masthead .ui.huge.form {
+    padding-top: 2rem;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.masthead .ui.huge.form .ui.selection.list {
+	background: white;
+	margin-top: -1em;
+	text-align: left;
+	max-height: 300px;
+	overflow-y: auto;
+}
+
+
+@media screen and (min-width: 600px) {
+	.masthead .ui.text.container {
+	    top: 20%;
+	    left: calc(50% - 350px);
+	}
+
+	.masthead .ui.text.container h1 {
+		margin-top: 1rem;
+		font-size: 4rem;
+		text-transform: uppercase;
+	}
+
+	.masthead .ui.huge.form {
+	    width: 75%;
+	}
+}
+
+.ui.grid.container h1.ui.header {
+	padding-left: 1rem;
+	padding-right: 1rem;
+	margin-top: 1rem;
+}
+
+.this-week.comics .ui.link.cards .card,
+.last-week.comics .ui.link.cards .card,
+.this-month.comics .ui.link.cards .card {
+	margin-bottom: 2em !important;
+}
+
+.this-week.comics .ui.cards > .card > .content, 
+.last-week.comics .ui.cards > .card > .content, 
+.this-month.comics .ui.cards > .card > .content {
+	padding: 0.5em 1em;
+	min-height: 50px;
+}
+
+.comics { box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1); }
+
+.comics .ui.header {
+	background-color: red;
+	color: white;
+	text-transform: uppercase;
+	margin-bottom: 0;
+	position: relative; 
+}
+
+.comics .ui.header span.corner-triangle {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 36px 0 0 36px;
+	border-color: transparent transparent transparent #ff0000;
+
+	position: absolute;
+	top: 0;
+	right: -36px;
+}
+
+.comics .ui.header + .row { border-top: 1px solid red; }
+
+.components { 
+	display: block;
+	border-bottom: 1px solid rgba(34, 36, 38, 0.15); 
+	position:relative;
+}
+
+.components .cards {
+	animation: fadeInSlideUp 0.5s ease-out forwards;
+	animation-iteration-count: 1;
+
+	/* Safari and Chrome */
+	-webkit-animation: fadeInSlideUp 0.5s;
+	-webkit-animation-iteration-count: 1;
+
+	/* FireFox */
+	-moz-animation: fadeInSlideUp 0.5s;
+	-moz-animation-iteration-count: 1;
+}
+
+
+/* CSS Animation */
+@keyframes fadeInSlideUp { 
+	from {bottom:-100px; opacity: 0;}
+	to {bottom:0; opacity: 1;}
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes fadeInSlideUp {
+	from {bottom:-100px; opacity: 0;}
+	to {bottom:0; opacity: 1;}
+}
+
+/* FireFox */
+@-moz-keyframes fadeInSlideUp {
+	from {bottom:-100px; opacity: 0;}
+	to {bottom:0; opacity: 1;}
+}

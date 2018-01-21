@@ -1,0 +1,284 @@
+<html ng-app="marvelApiApp">
+<head>
+	<title>Angular/Semantic UI Project</title>
+    <link rel="stylesheet" type="text/css" href="dist/semantic.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/reset.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/site.css">
+
+    <link rel="stylesheet" type="text/css" href="dist/components/container.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/grid.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/header.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/image.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/menu.css">
+
+    <link rel="stylesheet" type="text/css" href="dist/components/divider.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/dropdown.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/segment.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/button.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/list.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/icon.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/transition.css">
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body ng-controller="MainCtrl as $ctrl" class="pushable">
+
+<!-- Fixed Nav Bar -->
+<div class="ui fixed inverted menu">
+    <div class="ui container">
+        <img class="logo" src="marvel.svg">
+
+        <a href="#" class="item home">Home</a>
+        <div class="ui simple dropdown item">
+            Dropdown <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="#">Link Item</a>
+                <a class="item" href="#">Link Item</a>
+                <div class="divider"></div>
+                <div class="header">Header Item</div>
+                <div class="item">
+                    <i class="dropdown icon"></i>
+                    Sub Menu
+                    <div class="menu">
+                        <a class="item" href="#">Link Item</a>
+                        <a class="item" href="#">Link Item</a>
+                    </div>
+                </div>
+                <a class="item" href="#">Link Item</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Page Contents -->
+<div class="pusher">
+
+    <!-- Hero Banner -->
+    <div class="ui inverted vertical masthead center aligned segment">
+        <div class="ui text container">
+            <h1 class="ui inverted header">Marvel Comic Finder</h1>
+            <h2>Find all your favourite Marvel Superheroes and comics here!</h2>
+
+            <div class="ui huge form">
+                <div class="field">
+                    <input type="text" ng-model="searchValue" ng-keyup="typeAhead(searchValue)" placeholder="e.g. Spider-man, X-men or Wolverine">
+                </div>
+                
+                <div class="ui middle aligned selection list">
+                    <div class="item" ng-if="showHeroList" 
+                        ng-hide="heroesListResult.length > 0">
+                        <div class="content">
+                            Searching....
+                        </div>
+                    </div>
+                    <div class="item" ng-repeat="heroesList in heroesListResult" ng-click="selectHero(heroesList)">
+                        <img class="ui avatar image" ng-src="{{heroesList.thumbnail.path + '.' + heroesList.thumbnail.extension}}">
+                        <div class="content">
+                            <div class="header">{{heroesList.name}}</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="heroImage" ng-style="{'background-image':'url('+thisComic +')'}"></div>
+    </div>
+
+    <!-- This Week Comics -->
+    <!-- <div class="ui sizer vertical stripe segment this-week comics">
+        <div class="ui middle aligned stackable grid container">
+            <h1 class="ui header">
+                <span>This Weeks Comics</span>
+                <span class="corner-triangle"></span>
+            </h1>
+
+            <div class="row">
+                <div class="four wide column" ng-repeat="thisWeekComics in thisWeekComics">
+                    <div class="ui link cards" ng-click="showComicDetails(thisWeekComics)">
+                        <div class="ui centered card">
+                            <div class="image">
+                                <img ng-if="thisWeekLoading" src="loader.gif" srcset="loader.svg" style="width: 50%; margin: 0 auto;"/>
+
+                                <a ng-if="!thisWeekLoading">
+                                    <img class="ui fluid image" ng-src="{{thisWeekComics.images[0].path + '.' + thisWeekComics.images[0].extension}}"/>
+                                </a>
+                            </div>
+                            <div class="content">
+                                <div class="description">
+                                    <a>{{thisWeekComics.title}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    
+    <comic-list date-api="$ctrl.getThisWeekApi" view="$ctrl.view" on-view-change="$ctrl.view = $event.view"></comic-list>
+
+    <!-- Last Week Comics -->
+    <!-- <div class="ui sizer vertical stripe segment last-week comics">
+        <div class="ui middle aligned stackable grid container">
+            <h1 class="ui header">
+                <span>Last Weeks Comics</span>
+                <span class="corner-triangle"></span>
+            </h1>
+
+            <div class="row">
+                <div class="four wide column" ng-repeat="lastWeekComics in lastWeekComics">
+                    <div class="ui link cards" ng-click="showComicDetails(lastWeekComics)">
+                        <div class="ui centered card">
+                            <div class="image">
+                                <img ng-if="lastWeekLoading" src="loader.gif" srcset="loader.svg" style="width: 50%; margin: 0 auto;"/>
+
+                                <a ng-if="!lastWeekLoading" href="">
+                                    <img class="ui fluid image" ng-src="{{lastWeekComics.images[0].path + '.' + lastWeekComics.images[0].extension}}"/>
+                                </a>
+                            </div>
+                            <div class="content">
+                                <div class="description">
+                                    <a>{{lastWeekComics.title}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <comic-list date-api="$ctrl.getLastWeekApi" view="$ctrl.view" on-view-change="$ctrl.view = $event.view"></comic-list>
+
+    <!-- This Month Comics -->
+    <!-- <div class="ui sizer vertical stripe segment this-month comics">
+        <div class="ui middle aligned stackable grid container">
+            <h1 class="ui header">
+                <span>This Months Comics</span>
+                <span class="corner-triangle"></span>
+            </h1>
+
+            <div class="row">
+                <div class="four wide column" ng-repeat="thisMonthComics in thisMonthComics">
+                    <div class="ui link cards" ng-click="showComicDetails(thisMonthComics)">
+                        <div class="ui centered card">
+                            <div class="image">
+                                <img ng-if="thisMonthLoading" src="loader.gif" srcset="loader.svg" style="width: 50%; margin: 0 auto;"/>
+                                
+                                <a ng-if="!thisMonthLoading" href="">
+                                    <img class="ui fluid image" ng-src="{{thisMonthComics.images[0].path + '.' + thisMonthComics.images[0].extension}}"/>
+                                </a>
+                            </div>
+                            <div class="content">
+                                <div class="description">
+                                    <a href="">{{thisMonthComics.title}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <comic-list date-api="$ctrl.getThisMonthApi" view="$ctrl.view" on-view-change="$ctrl.view = $event.view"></comic-list>
+
+    <!-- Footer -->
+    <div class="ui inverted vertical footer segment">
+        <div class="ui container">
+            <div class="ui stackable inverted divided equal height stackable grid">
+                <div class="three wide column">
+                    <h4 class="ui inverted header">About</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">A</a>
+                        <a href="#" class="item">B</a>
+                        <a href="#" class="item">C</a>
+                        <a href="#" class="item">D</a>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header">Services</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">A</a>
+                        <a href="#" class="item">B</a>
+                        <a href="#" class="item">C</a>
+                        <a href="#" class="item">D</a>
+                    </div>
+                </div>
+                <div class="seven wide column">
+                    <h4 class="ui inverted header">Marvel Comic Finder</h4>
+                    <p>A pet project using Semantic UI, Angular 1.6.6 and Marvel's Comic API.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <!-- <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            {{information.title}}
+        </div>
+        <div class="image scrolling content">
+            <div class="ui large image">
+                <img ng-src="{{information.thumbnail.path + '.' + information.thumbnail.extension}}" style="width: 400px;"/>
+            </div>
+            <div class="description">
+                <div class="ui grid">
+                    <div class="eight wide column">
+                        <p>
+                            <strong>Description</strong><br>{{information.description}}
+                        </p>
+                        <p>
+                            <strong>Series</strong><br>
+                            {{information.series.name}}
+                        </p>
+                    </div>
+                    <div class="eight wide column">
+                        <p>
+                            <strong>Creators</strong>
+                            <ul>
+                                <li ng-repeat="creators in information.creators.items">
+                                    {{creators.name}} - {{creators.role}}
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <modal view="$ctrl.view"></modal>
+
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="md5.js"></script>
+
+<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="components/comic-list/comic-list.js"></script>
+<script type="text/javascript" src="components/modal/modal.js"></script>
+
+<script src="dist/semantic.js"></script>
+<script src="dist/components/visibility.js"></script>
+<script src="dist/components/sidebar.js"></script>
+<script src="dist/components/transition.js"></script>
+<script>
+$(document).ready(function() {
+    // lazy load images
+    $('.image').visibility({
+        type: 'image',
+        transition: 'vertical flip in',
+        duration: 500
+    });
+});
+</script>
+
+
+</body>
+</html>
